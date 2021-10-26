@@ -12,7 +12,7 @@ import defaultAvatar from "../resources/eggie.jpg";
 import Quote from "./Quote";
 import { FetchRepliees } from "../api/TwetchGraph";
 import { FetchPostDetail } from "../api/TwetchGraph";
-//import MediaGrid from "./MediaGrid";
+import MediaGrid from "./MediaGrid";
 import PostDescription from "./PostDescription";
 
 const Twetch = require("@twetch/sdk");
@@ -246,7 +246,9 @@ export default function QuotedPost(props) {
                 <div style={{ position: "relative" }}>
                   <PostDescription post={postData} />
                 </div>
-                <div>{/* <MediaGrid files={postData.files} /> */}</div>
+                <div>
+                  {postData.files && <MediaGrid files={postData.files} />}{" "}
+                </div>
 
                 {quoted.node ? (
                   <Quote {...quoted} tx={quoted.node.transaction} />

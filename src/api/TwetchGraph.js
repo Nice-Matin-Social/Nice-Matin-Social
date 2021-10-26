@@ -14,6 +14,7 @@ export const twquery = async (q) => {
 const PostFields = `{
   bContent
   createdAt
+  files
   id
   numLikes
   postsByReplyPostId {

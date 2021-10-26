@@ -16,7 +16,7 @@ import TwetchLogo from "../resources/TwetchLogo";
 import Timestamp from "../utils/Timestamp";
 import defaultAvatar from "../resources/eggie.jpg";
 import BranchIcon from "../resources/BranchIcon";
-//import MediaGrid from "./MediaGrid";
+import MediaGrid from "./MediaGrid";
 import PostDescription from "./PostDescription";
 
 export default function Quote(props) {
@@ -124,7 +124,7 @@ export default function Quote(props) {
         </Paper>
         <div style={{ padding: "8px" }}>
           <PostDescription post={postData} />
-          <div>{/* <MediaGrid files={postData.files} /> */}</div>
+          <div>{postData.files && <MediaGrid files={postData.files} />} </div>
         </div>
       </Paper>
     );

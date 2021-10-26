@@ -10,6 +10,7 @@ import TwetchLogo from "../resources/TwetchLogo";
 import Timestamp from "../utils/Timestamp";
 import defaultAvatar from "../resources/eggie.jpg";
 import PostDescription from "./PostDescription";
+import MediaGrid from "./MediaGrid";
 import { FetchRepliees } from "../api/TwetchGraph";
 
 export default function Post(props) {
@@ -225,7 +226,9 @@ export default function Post(props) {
                   </Typography>
                 )}
                 <PostDescription post={postData} />
-                <div></div>
+                <div>
+                  {postData.files && <MediaGrid files={postData.files} />}
+                </div>
               </div>
               <Grid
                 container
