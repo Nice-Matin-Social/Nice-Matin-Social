@@ -1,2 +1,2 @@
-# EggShell
-Created with CodeSandbox
+# EggDao WebApp
+## Dedicated Twetch Client

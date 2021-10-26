@@ -1,0 +1,23 @@
+{
+  "appIdentity": {
+    "domainName": "eggdao.xyz",
+    "title": "EggDao",
+    "subtitle": "We like the egg",
+    "logo": "./resources/Logo.js",
+    "banner": "./resources/twetchEgg.png"
+  },
+  "ownerInfo": {
+    "clientIdentifier": "10d3b9a3-3733-4769-9f97-d255ee37113b",
+    "inviteLink": "https://twet.ch/inv/eggdao"
+  },
+  "customization": {
+    "ticker": "$EGG",
+    "dashBoardFilters": ["#problems", "#ideas", "#projects"],
+    "palette": {
+      "primary": { "main": "#B17C01" },
+      "secondary": { "main": "#21E800" }
+    },
+    "postPrice": "0.02",
+    "likePrice": "0.218"
+  }
+}
