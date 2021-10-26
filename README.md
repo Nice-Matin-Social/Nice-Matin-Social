@@ -1,2 +1,2 @@
-# EggDao WebApp
+# EggShell
 ## Dedicated Twetch Client
