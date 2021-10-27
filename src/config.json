@@ -1,6 +1,6 @@
 {
   "appIdentity": {
-    "domainName": "eggdao.xyz",
+    "url": "eggdao.xyz",
     "title": "EggDao",
     "subtitle": "We like the egg",
     "logo": "./resources/Logo.js",
