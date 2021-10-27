@@ -171,7 +171,7 @@ export default function QuotedPost(props) {
                 to={`/u/${postData.userId}`}
                 onClick={(e) => e.stopPropagation()}
               >
-                <Avatar src={postData.userByUserId.name} />
+                <Avatar src={postData.userByUserId.icon} />
               </Link>
               <div
                 style={{
