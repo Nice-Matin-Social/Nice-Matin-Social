@@ -21,12 +21,11 @@ import config from "./config.json";
 export default function App() {
   const theme = createTheme({
     palette: {
-      mode: localStorage.colorMode || "light",
       primary: {
-        main: "#b17c01" //config
+        main: config.customization.palette.primary.main
       },
       secondary: {
-        main: "#21e800" //config
+        main: config.customization.palette.secondary.main
       }
     }
   });
