@@ -18,7 +18,7 @@ import EmojiObjectsOutlinedIcon from "@mui/icons-material/EmojiObjectsOutlined";
 import StarsOutlinedIcon from "@mui/icons-material/StarsOutlined";
 import AddCircleOutlineRoundedIcon from "@mui/icons-material/AddCircleOutlineRounded";
 import SettingsIcon from "@mui/icons-material/Settings";
-import Logo from "../resources/Logo";
+import Mask from "../resources/Mask";
 
 import Notifications from "./Notifications";
 import Messages from "./Messages";
@@ -67,7 +67,7 @@ export default function LeftPane(props) {
               }}
               to="/"
             >
-              <Logo left />
+              <Mask left />
             </Link>
           </div>
           <div

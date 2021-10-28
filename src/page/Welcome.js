@@ -1,8 +1,9 @@
 import React from "react";
 import { Button, Grid, Hidden, useMediaQuery, useTheme } from "@mui/material";
 import { Link } from "react-router-dom";
-import Logo from "../resources/Logo";
-import TwetchEgg from "../resources/twetchEgg.png";
+import Mask from "../resources/Mask";
+import Banner from "../resources/Banner.png";
+import config from "../config.json";
 
 export default function Welcome() {
   const theme = useTheme();
@@ -13,7 +14,7 @@ export default function Welcome() {
       style={{
         display: "flex",
         flexDirection: "column",
-        overflow: "auto"
+        overflow: "hidden"
       }}
     >
       <div>
@@ -23,7 +24,7 @@ export default function Welcome() {
             display: "flex",
             flexDirection: "column",
             height: "100vh",
-            backgroundImage: `url(${TwetchEgg})`,
+            backgroundImage: `url(${Banner})`,
             backgroundPosition: "center",
             backgroundRepeat: "no-repeat",
             backgroundSize: "cover"
@@ -39,11 +40,11 @@ export default function Welcome() {
                 style={{ fontWeight: 669, fontSize: "24px", cursor: "pointer" }}
               >
                 <span role="img" aria-label="the egg way">
-                  (🥚,🐣)
+                  {config.appIdentity.mask}
                 </span>
                 {smDown ? null : (
                   <span style={{ fontSize: "18px", marginLeft: "3px" }}>
-                    EggDao
+                    {config.appIdentity.title}
                   </span>
                 )}
               </div>
@@ -59,14 +60,11 @@ export default function Welcome() {
                   padding: "12px",
                   borderRadius: "24px",
                   maxWidth: "333px",
-                  maxHeight: "369px"
+                  maxHeight: "420px"
                 }}
               >
-                <h1 style={{ color: "#000000" }}>Upgrade your community</h1>
-                <p>
-                  Community tools to grow your wealth - Twetch and earn
-                  compounding interest
-                </p>
+                <h1 style={{ color: "#000000" }}>{config.appIdentity.title}</h1>
+                <p>{config.appIdentity.description}</p>
                 <Grid
                   container
                   spacing={2}
@@ -92,7 +90,7 @@ export default function Welcome() {
                   </Grid>
                   <Grid item>
                     <Button
-                      href="https://eggdao.notion.site/EggDAO-cd8f099107704fecac5b8f318d41a330"
+                      href="https://relayx.com/market/PXL"
                       target="_blank"
                       style={{
                         width: 222,
@@ -102,7 +100,7 @@ export default function Welcome() {
                       variant="outlined"
                       color="secondary"
                     >
-                      Documentation
+                      {config.welcome.buttonText}
                     </Button>
                   </Grid>
                 </Grid>

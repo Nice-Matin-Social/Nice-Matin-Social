@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { Button, Paper, Typography, useTheme } from "@mui/material";
-import Logo from "../resources/Logo";
+import Mask from "../resources/Mask";
 import config from "../config.json";
 
 import { twquery } from "../api/TwetchGraph";
@@ -123,7 +123,7 @@ export default function Auth() {
           borderRadius: "6px"
         }}
       >
-        <Logo style={{ alignContent: "center" }} />
+        <Mask style={{ alignContent: "center" }} />
         <Typography
           variant="body1"
           style={{

@@ -1,13 +1,4 @@
 import React, { useState, useEffect } from "react";
-import { useHistory, Link } from "react-router-dom";
-import { Avatar, Grid, IconButton, Typography } from "@mui/material";
-import LikeIcon from "../resources/LikeIcon";
-import ReplyIcon from "../resources/ReplyIcon";
-import BoostIcon from "../resources/BoostIcon";
-import CopyIcon from "../resources/CopyIcon";
-import TwetchLogo from "../resources/TwetchLogo";
-import Timestamp from "../utils/Timestamp";
-import defaultAvatar from "../resources/eggie.jpg";
 import Post from "./Post";
 import QuotedPost from "./QuotedPost";
 import { FetchPostDetail } from "../api/TwetchGraph";

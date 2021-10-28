@@ -1,7 +1,8 @@
 import React from "react";
 import { useTheme } from "@mui/material";
+import config from "../config.json";
 
-export default function Logo(props) {
+export default function Mask(props) {
   const small = props.small;
   const left = props.left;
   const theme = useTheme();
@@ -16,11 +17,13 @@ export default function Logo(props) {
         paddingLeft: left && "24px"
       }}
     >
-      <span role="img" aria-label="the egg way">
-        (🥚,🐣)
+      <span role="img" aria-label={`${config.appIdentity.title}'s Mask`}>
+        {config.appIdentity.mask}
       </span>
       {!small && (
-        <span style={{ fontSize: "18px", marginLeft: "3px" }}>EggDao</span>
+        <span style={{ fontSize: "18px", marginLeft: "3px" }}>
+          {config.appIdentity.title}
+        </span>
       )}
     </div>
   );

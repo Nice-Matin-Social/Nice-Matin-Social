@@ -8,7 +8,6 @@ import CopyIcon from "../resources/CopyIcon";
 import BranchIcon from "../resources/BranchIcon";
 import TwetchLogo from "../resources/TwetchLogo";
 import Timestamp from "../utils/Timestamp";
-import defaultAvatar from "../resources/eggie.jpg";
 import Quote from "./Quote";
 import { FetchRepliees } from "../api/TwetchGraph";
 import { FetchPostDetail } from "../api/TwetchGraph";
