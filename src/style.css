@@ -30,3 +30,67 @@ body {
 .Links :hover {
   text-decoration: underline;
 }
+
+/* Media */
+
+.twetch-renderer__media-grid {
+  display: flex;
+  padding: 0;
+  flex-wrap: wrap;
+  list-style: none;
+  overflow-y: auto;
+}
+
+.twetch-renderer__media-grid-item {
+  position: relative;
+  flex-shrink: 0;
+  display: block;
+  padding: 2px;
+  box-sizing: border-box;
+}
+
+.twetch-renderer__media-grid--multi > .twetch-renderer__media-grid-item {
+  height: 202px;
+}
+
+.twetch-renderer__media-grid--multi > * {
+  width: 50%;
+}
+.twetch-renderer__media-grid--odd > :first-child {
+  width: 100%;
+}
+
+.twetch-renderer__media-grid-item:first-child > * {
+  border-top-left-radius: 6px;
+}
+
+.twetch-renderer__media-grid--multi
+  > .twetch-renderer__media-grid-item:nth-child(2)
+  > *,
+.twetch-renderer__media-grid--odd
+  > .twetch-renderer__media-grid-item:first-child
+  > * {
+  border-top-right-radius: 6px;
+}
+
+.twetch-renderer__media-grid-item > * {
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.twetch-renderer__media-grid-close {
+  position: fixed;
+  top: 8px;
+  right: 8px;
+  width: 32px;
+  height: 32px;
+  fill: white;
+  background-color: transparent;
+  outline: none;
+  border: none;
+  z-index: 1000;
+  cursor: pointer;
+}
