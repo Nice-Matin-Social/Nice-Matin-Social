@@ -9,7 +9,6 @@ import {
   useTheme
 } from "@mui/material";
 import Timestamp from "../utils/Timestamp";
-import defaultAvatar from "../resources/eggie.jpg";
 import BranchBadge from "../resources/BranchBadge";
 import LikeBadge from "../resources/LikeBadge";
 import FollowBadge from "../resources/FollowBadge";

@@ -18,7 +18,6 @@ import { FetchUserData, FetchUserPosts } from "../api/TwetchGraph";
 import StickyButton from "../components/StickyButton";
 import LeftPane from "../components/LeftPane";
 import RightPane from "../components/RightPane";
-import defaultAvatar from "../resources/eggie.jpg";
 import Post from "../components/Post";
 import BranchedPost from "../components/BranchedPost";
 import QuotedPost from "../components/QuotedPost";

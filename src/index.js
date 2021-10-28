@@ -3,7 +3,7 @@ import { BrowserRouter } from "react-router-dom";
 import { CssBaseline } from "@mui/material";
 import { Helmet } from "react-helmet";
 import config from "./config.json";
-import Logo from "./resources/twetchEgg.png";
+import Logo from "./resources/Logo.png";
 import App from "./App";
 
 const rootElement = document.getElementById("root");

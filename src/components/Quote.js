@@ -8,21 +8,12 @@ import {
   Typography,
   useTheme
 } from "@mui/material";
-import LikeIcon from "../resources/LikeIcon";
-import ReplyIcon from "../resources/ReplyIcon";
-import BoostIcon from "../resources/BoostIcon";
-import CopyIcon from "../resources/CopyIcon";
-import TwetchLogo from "../resources/TwetchLogo";
 import Timestamp from "../utils/Timestamp";
-import defaultAvatar from "../resources/eggie.jpg";
-import BranchIcon from "../resources/BranchIcon";
 import MediaGrid from "./MediaGrid";
 import PostDescription from "./PostDescription";
 
 export default function Quote(props) {
   const postTx = props.tx;
-  const branchedById = props.branchedById;
-  const branchedByName = props.branchedByName;
   const postData = props.node;
   const diff = props.boostDiff;
   const theme = useTheme();

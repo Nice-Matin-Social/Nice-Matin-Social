@@ -22,7 +22,7 @@ import StarsOutlinedIcon from "@mui/icons-material/StarsOutlined";
 import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
 import SearchIcon from "@mui/icons-material/Search";
 import SettingsIcon from "@mui/icons-material/Settings";
-import Logo from "../resources/Logo";
+import Mask from "../resources/Mask";
 
 import Messages from "./Messages";
 import Notifications from "./Notifications";
@@ -247,7 +247,7 @@ export default function AppBar(props) {
             }}
             to="/"
           >
-            <Logo small />
+            <Mask small />
           </Link>
         </div>
         <div style={{ float: "right" }}>
