@@ -1,450 +1,98 @@
-import { useTheme } from "@emotion/react";
-import { ImageList, ImageListItem } from "@mui/material";
-import React from "react";
+import React, { useState, useCallback } from "react";
+import clsx from "clsx";
+import ImageSlides from "react-imageslides";
+import { Backdrop } from "@mui/material";
 
 export default function MediaGrid(props) {
-  const theme = useTheme();
   const files = JSON.parse(props.files);
-  switch (files.length) {
-    case 1:
-      return (
-        <div
-          style={{
-            maxHeight: "273.938px",
-            width: "100%",
-            marginTop: "8px"
-          }}
-        >
-          <div
-            style={{
-              width: "100%",
-              height: "100%",
-              margin: "0 auto",
-              border: theme.palette.divider,
-              display: "flex",
-              overflow: "hidden",
-              animation: "jss889 8s ease-in-out infinite",
-              maxHeight: "100vh",
-              alignItems: "center",
-              borderRadius: "6px",
-              backgroundSize: "400% 100%",
-              backgroundImage:
-                "linear-gradient(270deg, #3F3F41, #1A1A1C, #3F3F41, #1A1A1C)"
-            }}
-          >
-            <img
-              src={`https://dogefiles.twetch.app/${files[0]}`}
-              alt={`img ${files[0]}`}
-              style={{
-                width: "100%",
-                height: "100%",
-                backgroundSize: "cover",
-                backgroundRepeat: "no-repeat",
-                backgroundPosition: "center",
-                backgroundImage: `url("https://dogefiles.twetch.app/${files[0]}")`
-              }}
-            />
-          </div>
-        </div>
-      );
-    case 2:
-      return (
-        <ImageList sx={{ marginTop: "8px" }} cols={2} rowHeight="202px">
-          {files.map((f) => {
-            return (
-              <ImageListItem
-                style={{
-                  width: "100%",
-                  height: "100%",
-                  margin: "0 auto",
-                  border: theme.palette.divider,
-                  display: "flex",
-                  overflow: "hidden",
-                  animation: "jss889 8s ease-in-out infinite",
-                  maxHeight: "100vh",
-                  alignItems: "center",
-                  borderRadius: "6px",
-                  backgroundSize: "400% 100%",
-                  backgroundImage:
-                    "linear-gradient(270deg, #3F3F41, #1A1A1C, #3F3F41, #1A1A1C)"
-                }}
-                key={`img_${f}`}
-              >
-                <img
-                  src={`https://dogefiles.twetch.app/${f}`}
-                  alt={`img ${f}`}
-                  style={{
-                    width: "100%",
-                    height: "100%",
-                    backgroundSize: "cover",
-                    backgroundRepeat: "no-repeat",
-                    backgroundPosition: "center"
-                  }}
-                />
-              </ImageListItem>
-            );
-          })}
-        </ImageList>
-      );
+  const [imageSlide, setImageSlide] = useState("");
+  const [open, setOpen] = useState(false);
+  const [activeIndex, setActiveIndex] = useState(0);
 
-    case 3:
-      return (
-        <div
-          style={{
-            width: "100%",
-            marginTop: "8px",
-            display: "flex",
-            flexDirection: "row"
-          }}
-        >
-          <div style={{ width: "100%" }}>
-            <ImageList cols={1} style={{ margin: "-1px" }}>
-              <ImageListItem
-                style={{
-                  height: "204px",
-                  width: "100%",
-                  padding: "1px"
-                }}
-              >
-                <div
-                  style={{
-                    width: "100%",
-                    height: "100%",
-                    margin: "0 auto",
-                    border: theme.palette.divider,
-                    display: "flex",
-                    overflow: "hidden",
-                    animation: "jss889 8s ease-in-out infinite",
-                    maxHeight: "100vh",
-                    alignItems: "center",
-                    borderRadius: "6px",
-                    backgroundSize: "400% 100%",
-                    backgroundImage:
-                      "linear-gradient(270deg, #3F3F41, #1A1A1C, #3F3F41, #1A1A1C)"
-                  }}
-                >
-                  <img
-                    src={`https://dogefiles.twetch.app/${files[0]}`}
-                    alt={`img ${files[0]}`}
-                    style={{
-                      width: "100%",
-                      backgroundSize: "cover",
-                      backgroundRepeat: "no-repeat",
-                      backgroundPosition: "center"
-                    }}
-                  />
-                </div>
-              </ImageListItem>
-            </ImageList>
-          </div>
-          <div style={{ width: "100%", marginLeft: "2px" }}>
-            <ImageList style={{ margin: "-1px" }} cols={1}>
-              {files.map((f, index) => {
-                if (index === 0) {
-                  return null;
-                } else {
-                  return (
-                    <ImageListItem
-                      style={{
-                        height: "100px",
-                        width: "100%",
-                        margin: "0 auto",
-                        border: `1px solid ${theme.palette.divider}`,
-                        overflow: "hidden",
-                        animation: "jss889 8s ease-in-out infinite",
-                        maxHeight: "100vh",
-                        alignItems: "center",
-                        borderRadius: "6px",
-                        backgroundSize: "400% 100%",
-                        backgroundImage:
-                          "linear-gradient(270deg, #3F3F41, #1A1A1C, #3F3F41, #1A1A1C)"
-                      }}
-                      key={`img_${f}`}
-                    >
-                      <img
-                        src={`https://dogefiles.twetch.app/${f}`}
-                        alt={`img ${f}`}
-                        style={{
-                          height: "100%",
-                          borderRadius: "6px",
-                          backgroundSize: "400% 100%",
-                          backgroundImage:
-                            "linear-gradient(270deg, #3F3F41, #1A1A1C, #3F3F41, #1A1A1C)"
-                        }}
-                      />
-                    </ImageListItem>
-                  );
-                }
-              })}
-            </ImageList>
-          </div>
-        </div>
-      );
-    case 4:
-      return (
-        <ImageList
-          sx={{ width: "100%", height: "238px" }}
-          cols={2}
-          rowHeight="128px"
-        >
-          {files.map((f) => {
-            return (
-              <ImageListItem
-                style={{
-                  width: "100%",
-                  height: "100%",
-                  margin: "0 auto",
-                  border: `1px solid ${theme.palette.divider}`,
-                  overflow: "hidden",
-                  animation: "jss889 8s ease-in-out infinite",
-                  maxHeight: "100vh",
-                  alignItems: "center",
-                  borderRadius: "6px",
-                  backgroundSize: "400% 100%",
-                  backgroundImage:
-                    "linear-gradient(270deg, #3F3F41, #1A1A1C, #3F3F41, #1A1A1C)"
-                }}
-                key={`img_${f}`}
-              >
-                <img
-                  src={`https://dogefiles.twetch.app/${f}`}
-                  alt={`img ${f}`}
-                  style={{
-                    width: "100%",
-                    display: "block",
-                    borderRadius: "6px",
-                    backgroundSize: "400% 100%",
-                    backgroundImage:
-                      "linear-gradient(270deg, #3F3F41, #1A1A1C, #3F3F41, #1A1A1C)"
-                  }}
-                />
-              </ImageListItem>
-            );
-          })}
-        </ImageList>
-      );
-    default:
-      return null;
+  const images = files.map((url) => {
+    return `https://dogefiles.twetch.app/${url}`;
+  });
+  const images1 = [
+    "http://dingyue.nosdn.127.net/0UDLpU6BsCNm9v9OpT0Dhn=nHKJFC6SMByz8bMWxFM=1t1531988836046compressflag.jpeg",
+    "http://dingyue.nosdn.127.net/9sFTTWDQoHjxyIkU9wzm8CiDNVbq48Mwf2hyhgRghxA5O1527909480497compressflag.jpeg",
+    "http://dingyue.nosdn.127.net/eSJPDtcP9NBvEOIMPyPLxwpJSZIu4D36qDss2RGQjNHBp1531990042001compressflag.jpeg",
+    "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1503235534249&di=4c198d5a305627d12e5dae4c581c9e57&imgtype=0&src=http%3A%2F%2Fimg2.niutuku.com%2Fdesk%2Fanime%2F0529%2F0529-17277.jpg"
+  ];
+  const openImage = useCallback((e, url) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setImageSlide(url);
+    setOpen(true);
+  }, []);
+
+  const handleChange = useCallback((newIndex) => {
+    setActiveIndex(newIndex);
+  }, []);
+
+  if (!files.length) {
+    return null;
   }
 
-  /* else if (files.length === 3) {
-    return (
-      <div style={{ display: "flex" }}>
-        <div style={{ width: "50%" }}>
-          <GridList style={{ margin: "-1px" }}>
-            <GridListTile
-              style={{
-                width: "100%",
-                height: "204px",
-                padding: "1px"
-              }}
-            >
-              <div
-                style={{
-                  width: "100%",
-                  height: "100%",
-                  display: "flex",
-                  flexDirection: "column"
-                }}
-              >
-                <div
-                  style={{
-                    width: "100%",
-                    height: "100%",
-                    margin: "0 auto",
-                    border: "1px solid #262629",
-                    display: "flex",
-                    overflow: "hidden",
-                    animation: "jss889 8s ease-in-out infinite",
-                    maxHeight: "100vh",
-                    alignItems: "center",
-                    borderRadius: "6px",
-                    backgroundSize: "400% 100%",
-                    backgroundImage:
-                      "linear-gradient(270deg, #3F3F41, #1A1A1C, #3F3F41, #1A1A1C)"
-                  }}
-                >
-                  <img
-                    alt={`pxl #${files[0]}`}
-                    style={{
-                      width: "100%",
-                      cursor: "pointer",
-                      display: "block",
-                      animation: "jss494 8s ease-in-out infinite",
-                      borderRadius: "6px",
-                      backgroundSize: "400% 100%",
-                      backgroundImage:
-                        "linear-gradient(270deg, #3F3F41, #1A1A1C, #3F3F41, #1A1A1C)"
-                    }}
-                    src={`https://dogefiles.twetch.app/${files[0]}`}
-                  />
-                </div>
-              </div>
-            </GridListTile>
-          </GridList>
-        </div>
-        <div style={{ width: "50%", marginLeft: "1px" }}>
-          <GridList style={{ margin: "-1px" }}>
-            <GridListTile
-              style={{
-                width: "100%",
-                height: "102px",
-                padding: "1px"
-              }}
-            >
-              <div
-                style={{
-                  width: "100%",
-                  height: "100%",
-                  display: "flex",
-                  flexDirection: "column"
-                }}
-              >
-                <div
-                  style={{
-                    width: "100%",
-                    height: "100%",
-                    margin: "0 auto",
-                    border: "1px solid #262629",
-                    display: "flex",
-                    overflow: "hidden",
-                    animation: "jss889 8s ease-in-out infinite",
-                    maxHeight: "100vh",
-                    alignItems: "center",
-                    borderRadius: "6px",
-                    backgroundSize: "400% 100%",
-                    backgroundImage:
-                      "linear-gradient(270deg, #3F3F41, #1A1A1C, #3F3F41, #1A1A1C)"
-                  }}
-                >
-                  <img
-                    alt={`pxl #${files[1]}`}
-                    style={{
-                      width: "100%",
-                      cursor: "pointer",
-                      display: "block",
-                      animation: "jss494 8s ease-in-out infinite",
-                      borderRadius: "6px",
-                      backgroundSize: "400% 100%",
-                      backgroundImage:
-                        "linear-gradient(270deg, #3F3F41, #1A1A1C, #3F3F41, #1A1A1C)"
-                    }}
-                    src={`https://dogefiles.twetch.app/${files[1]}`}
-                  />
-                </div>
-              </div>
-            </GridListTile>
-            <GridListTile
-              style={{
-                width: "100%",
-                height: "102px",
-                padding: "1px"
-              }}
-            >
-              <div
-                style={{
-                  width: "100%",
-                  height: "100%",
-                  display: "flex",
-                  flexDirection: "column"
-                }}
-              >
-                <div
-                  style={{
-                    width: "100%",
-                    height: "100%",
-                    margin: "0 auto",
-                    border: "1px solid #262629",
-                    display: "flex",
-                    overflow: "hidden",
-                    animation: "jss889 8s ease-in-out infinite",
-                    maxHeight: "100vh",
-                    alignItems: "center",
-                    borderRadius: "6px",
-                    backgroundSize: "400% 100%",
-                    backgroundImage:
-                      "linear-gradient(270deg, #3F3F41, #1A1A1C, #3F3F41, #1A1A1C)"
-                  }}
-                >
-                  <img
-                    alt={`pxl #${files[2]}`}
-                    style={{
-                      width: "100%",
-                      cursor: "pointer",
-                      display: "block",
-                      animation: "jss494 8s ease-in-out infinite",
-                      borderRadius: "6px",
-                      backgroundSize: "400% 100%",
-                      backgroundImage:
-                        "linear-gradient(270deg, #3F3F41, #1A1A1C, #3F3F41, #1A1A1C)"
-                    }}
-                    src={`https://dogefiles.twetch.app/${files[2]}`}
-                  />
-                </div>
-              </div>
-            </GridListTile>
-          </GridList>
-        </div>
-      </div>
-    );
-  } else {
-    return (
-      <GridList style={{ margin: "-1px" }}>
-        {files.map((file, index) => {
+  return (
+    <div>
+      <ul
+        className={clsx(
+          "twetch-renderer__media-grid",
+          files.length > 1 && "twetch-renderer__media-grid--multi",
+          files.length % 2 === 1 && "twetch-renderer__media-grid--odd"
+        )}
+      >
+        {images.map((url, index) => {
           return (
-            <GridListTile
-              style={{
-                width: "50%",
-                height: "102px",
-                padding: "1px"
-              }}
-              key={index}
-            >
-              <div
-                style={{
-                  width: "100%",
-                  height: "100%",
-                  display: "flex",
-                  flexDirection: "column"
-                }}
-              >
+            <li key={index} className="twetch-renderer__media-grid-item">
+              {images.length > 1 ? (
                 <div
                   style={{
-                    width: "100%",
-                    height: "100%",
-                    margin: "0 auto",
-                    border: "1px solid #262629",
-                    display: "flex",
-                    overflow: "hidden",
-                    animation: "jss889 8s ease-in-out infinite",
-                    maxHeight: "100vh",
-                    alignItems: "center",
-                    borderRadius: "6px",
-                    backgroundSize: "400% 100%",
-                    backgroundImage:
-                      "linear-gradient(270deg, #3F3F41, #1A1A1C, #3F3F41, #1A1A1C)"
+                    backgroundImage: `url(${url})`
                   }}
-                >
-                  <img
-                    alt={`pxl #${file}`}
-                    style={{
-                      width: "100%",
-                      cursor: "pointer",
-                      display: "block",
-                      animation: "jss494 8s ease-in-out infinite",
-                      borderRadius: "6px",
-                      backgroundSize: "400% 100%",
-                      backgroundImage:
-                        "linear-gradient(270deg, #3F3F41, #1A1A1C, #3F3F41, #1A1A1C)"
-                    }}
-                    src={`https://dogefiles.twetch.app/${file}`}
-                  />
-                </div>
-              </div>
-            </GridListTile>
+                  onClick={(e) => openImage(e, url)}
+                />
+              ) : (
+                <img src={url} onClick={(e) => openImage(e, url)} />
+              )}
+            </li>
           );
         })}
-      </GridList>
-    );
-  } */
+      </ul>
+
+      {imageSlide && (
+        <div>
+          <div
+            sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}
+            open={open}
+          >
+            <button
+              className="twetch-renderer__media-grid-close"
+              onClick={(e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                setImageSlide("");
+                setOpen(false);
+              }}
+            >
+              <svg focusable="false" viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path>
+              </svg>
+            </button>
+            {/*
+          Weird index calculation + showPageButton must be false due to bug:
+          https://github.com/loadingwyn/react-imageViewer/issues/17
+        */}
+          </div>
+          <ImageSlides
+            index={images.findIndex((url) => url === imageSlide)}
+            tapClose={false}
+            images={images}
+            isOpen={open}
+            showPageButton={true}
+          />
+        </div>
+      )}
+    </div>
+  );
 }

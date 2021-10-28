@@ -14,10 +14,13 @@
     "@mui/material": "5.0.0-rc.0",
     "@mui/styles": "5.0.1",
     "@twetch/sdk": "0.2.12",
+    "alloyfinger": "0.1.16",
+    "clsx": "1.1.1",
     "react": "17.0.2",
     "react-div-100vh": "0.6.0",
     "react-dom": "17.0.2",
     "react-helmet": "6.1.0",
+    "react-imageslides": "2.2.0",
     "react-infinite-scroll-component": "6.1.0",
     "react-router-dom": "5.3.0",
     "react-scripts": "4.0.0"
