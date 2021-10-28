@@ -21,6 +21,7 @@ import config from "./config.json";
 export default function App() {
   const theme = createTheme({
     palette: {
+      mode: localStorage.colorMode || "light",
       primary: {
         main: config.customization.palette.primary.main
       },

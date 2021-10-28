@@ -209,9 +209,7 @@ export default function Profile(props) {
                 }}
               >
                 <Avatar
-                  src={
-                    userId === localStorage.id ? userData.icon : defaultAvatar
-                  }
+                  src={userData.icon}
                   style={{ height: "64px", width: "64px" }}
                 />
               </div>
@@ -237,7 +235,7 @@ export default function Profile(props) {
                     textDecoration: "none"
                   }}
                 >
-                  {userId === localStorage.id ? userData.name : "Eggie"}
+                  {userData.name}
                 </Typography>
                 <div
                   style={{
