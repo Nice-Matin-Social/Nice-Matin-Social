@@ -171,7 +171,7 @@ export default function Profile(props) {
                     >
                       {userData.id === localStorage.id
                         ? "Your Profile"
-                        : `Eggie #${userData.id}'s Profile`}
+                        : `${userData.name}'s Profile`}
                     </Typography>
                   ) : (
                     <Typography
