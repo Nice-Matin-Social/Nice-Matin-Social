@@ -219,6 +219,7 @@ export default function Detail(props) {
                 {children.length > 1 && (
                   <FormControl
                     style={{
+                      zIndex: 0,
                       width: "100%"
                     }}
                   >

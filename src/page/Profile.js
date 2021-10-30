@@ -262,7 +262,7 @@ export default function Profile(props) {
                   width: "100%",
                   top: "0px",
                   position: "sticky",
-                  zIndex: 1002
+                  zIndex: 0
                 }}
               >
                 <Select

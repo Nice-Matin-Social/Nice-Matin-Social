@@ -61,9 +61,12 @@ export default function MediaGrid(props) {
       </ul>
 
       {imageSlide && (
-        <Backdrop
-          sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}
-          open={open}
+        <div
+          onClick={(e) => {
+            e.preventDefault();
+            e.stopPropagation();
+          }}
+          sx={{ zIndex: 1001 }}
         >
           <div>
             <button
@@ -87,7 +90,7 @@ export default function MediaGrid(props) {
             isOpen={open}
             showPageButton={true}
           />
-        </Backdrop>
+        </div>
       )}
     </div>
   );

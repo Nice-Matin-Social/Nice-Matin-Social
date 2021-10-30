@@ -211,6 +211,7 @@ export default function Search(props) {
             </div>
             <FormControl
               style={{
+                zIndex: 0,
                 width: "100%"
               }}
             >

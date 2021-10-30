@@ -155,6 +155,7 @@ export default function Dashboard(props) {
             )}
             <FormControl
               style={{
+                zIndex: 0,
                 width: "100%"
               }}
             >
