@@ -11,7 +11,7 @@ import {
 import { use100vh } from "react-div-100vh";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { useTheme, useMediaQuery } from "@mui/material";
-import { FetchHome } from "../api/TwetchGraph";
+import { FetchPXL } from "../api/TwetchGraph";
 import Composer from "../components/Composer";
 import AppBar from "../components/AppBar";
 import LeftPane from "../components/LeftPane";
@@ -37,7 +37,7 @@ const OrderToIndex = {
 export default function Dashboard(props) {
   const ticker = config.customization.ticker;
   const [orderBy, setOrderBy] = useState(indexToOrder[0]);
-  //const [filter, setFilter] = useState(props.filter);
+  const filters = config.customization.dashBoardFilters;
   const [postList, setPostList] = useState([]);
   const [offset, setOffset] = useState(0);
   //const [boosts, setBoosts] = useState([]);
@@ -57,8 +57,8 @@ export default function Dashboard(props) {
   }, [orderBy]);
 
   const fetchMore = () => {
-    FetchHome(ticker, orderBy, offset).then((res) => {
-      //console.log(res);
+    FetchPXL(ticker, filters, orderBy, offset).then((res) => {
+      // console.log(res);
       setTotalCount(res.allPosts.totalCount);
       //console.log("total:", totalCount);
       let data = res.allPosts.edges;

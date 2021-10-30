@@ -14,7 +14,7 @@
   },
   "customization": {
     "ticker": "$PXL",
-    "dashBoardFilters": ["#pxlpix", "#pxlvision", "#pxltribe"],
+    "dashBoardFilters": ["#pxlpix", "#pxlinspired", "#pxlvision", "#pxltribe"],
     "palette": {
       "primary": { "main": "#5549cd" },
       "secondary": { "main": "#bf64f5" }

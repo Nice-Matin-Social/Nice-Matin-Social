@@ -165,48 +165,14 @@ export function FetchPosts(filter, order, offset) {
     }
   }`);
 }
-export function FetchHome(ticker, order, offset) {
-  //console.log(filter);
+export function FetchPXL(ticker, filters, order, offset) {
+  let arr = filters.map((f) => {
+    return `{bContent:{includesInsensitive:"${f}"}}`;
+  });
+  arr = arr.toString();
+  console.log(arr);
   return twquery(`{
-    allPosts(orderBy: ${order} first: 30 offset: ${offset} filter: {or: [{mapComment:{includesInsensitive:"${ticker}"}}]}) {
-      totalCount
-      edges {
-        node {
-          ...${PostFields}
-        }
-      }
-    }
-  }`);
-}
-export function FetchIdeas(filter, order, offset) {
-  //console.log(filter);
-  return twquery(`{
-    allPosts(orderBy: ${order} first: 30 offset: ${offset} filter: {mapComment: {includes: "${filter}"}}) {
-      totalCount
-      edges {
-        node {
-          ...${PostFields}
-        }
-      }
-    }
-  }`);
-}
-export function FetchProjects(filter, order, offset) {
-  //console.log(filter);
-  return twquery(`{
-    allPosts(orderBy: ${order} first: 30 offset: ${offset} filter: {mapComment: {includes: "${filter}"}}) {
-      totalCount
-      edges {
-        node {
-          ...${PostFields}
-        }
-      }
-    }
-  }`);
-}
-export function FetchJobs(ticker, order, offset) {
-  return twquery(`{
-    allPosts(orderBy: ${order} first: 30 offset: ${offset} filter: {and: {bContent: {startsWith: "/job"}, mapComment: {includesInsensitive: "${ticker}"}}}) {
+    allPosts(orderBy: ${order} first: 30 offset: ${offset} filter: {or:[{mapComment:{includesInsensitive:"$${ticker}"}},{and: {or:[${arr}]}, userId: {equalTo: "16322"}}]}) {
       totalCount
       edges {
         node {
