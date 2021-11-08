@@ -165,14 +165,14 @@ export function FetchPosts(filter, order, offset) {
     }
   }`);
 }
-export function FetchPXL(ticker, filters, order, offset) {
+export function FetchPXL(filters, order, offset) {
   let arr = filters.map((f) => {
     return `{bContent:{includesInsensitive:"${f}"}}`;
   });
   arr = arr.toString();
   console.log(arr);
   return twquery(`{
-    allPosts(orderBy: ${order} first: 30 offset: ${offset} filter: {or:[{mapComment:{includesInsensitive:"$${ticker}"}},{and: {or:[${arr}]}, userId: {equalTo: "16322"}}]}) {
+    allPosts(orderBy: ${order} first: 30 offset: ${offset} filter: {and: {or:[${arr}]}, userId: {equalTo: "16322"}}) {
       totalCount
       edges {
         node {
