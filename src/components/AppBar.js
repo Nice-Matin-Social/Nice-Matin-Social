@@ -19,6 +19,7 @@ import HelpOutlineOutlinedIcon from "@mui/icons-material/HelpOutlineOutlined";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import EmojiObjectsOutlinedIcon from "@mui/icons-material/EmojiObjectsOutlined";
 import StarsOutlinedIcon from "@mui/icons-material/StarsOutlined";
+import PhotoCameraOutlinedIcon from "@mui/icons-material/PhotoCameraOutlined";
 import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
 import SearchIcon from "@mui/icons-material/Search";
 import SettingsIcon from "@mui/icons-material/Settings";
@@ -181,6 +182,16 @@ export default function AppBar(props) {
                   <ListItemText>
                     <Typography variant="body1" color={isSelected("Home")}>
                       Home
+                    </Typography>
+                  </ListItemText>
+                </ListItem>
+                <ListItem button component={Link} to="/gallery">
+                  <ListItemIcon>
+                    <PhotoCameraOutlinedIcon color={isSelected("Gallery")} />
+                  </ListItemIcon>
+                  <ListItemText>
+                    <Typography variant="body1" color={isSelected("Gallery")}>
+                      Gallery
                     </Typography>
                   </ListItemText>
                 </ListItem>

@@ -7,7 +7,8 @@ import TwetchCallback from "./page/TwetchCallBack";
 import Auth from "./page/Auth";
 import Notifications from "./page/Notifications";
 import Compose from "./page/Compose";
-import Dashboard from "./page/Dashboard";
+import Home from "./page/Home";
+import Gallery from "./page/Gallery";
 import Profile from "./page/Profile";
 import Search from "./page/Search";
 import Detail from "./page/Detail";
@@ -51,7 +52,8 @@ export default function App() {
             component={Notifications}
           />
 
-          <ProtectedRoute exact path="/" component={Dashboard} />
+          <ProtectedRoute exact path="/" component={Home} />
+          <ProtectedRoute exact path="/gallery" component={Gallery} />
           <ProtectedRoute exact path="/settings" component={Settings} />
           <ProtectedRoute
             exact

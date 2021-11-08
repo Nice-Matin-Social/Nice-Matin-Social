@@ -34,10 +34,9 @@ const OrderToIndex = {
   RANKING_DESC: 20
 };
 
-export default function Dashboard(props) {
-  const ticker = config.customization.ticker;
-  const [orderBy, setOrderBy] = useState(indexToOrder[0]);
+export default function Gallery(props) {
   const filters = config.customization.dashBoardFilters;
+  const [orderBy, setOrderBy] = useState(indexToOrder[0]);
   const [postList, setPostList] = useState([]);
   const [offset, setOffset] = useState(0);
   //const [boosts, setBoosts] = useState([]);
@@ -57,7 +56,7 @@ export default function Dashboard(props) {
   }, [orderBy]);
 
   const fetchMore = () => {
-    FetchPXL(ticker, filters, orderBy, offset).then((res) => {
+    FetchPXL(filters, orderBy, offset).then((res) => {
       // console.log(res);
       setTotalCount(res.allPosts.totalCount);
       //console.log("total:", totalCount);
@@ -104,7 +103,7 @@ export default function Dashboard(props) {
         justifyContent: "center"
       }}
     >
-      {smDown ? null : <LeftPane currentTab="Home" />}
+      {smDown ? null : <LeftPane currentTab="Gallery" />}
       <div
         style={{
           flex: 2,
@@ -121,7 +120,7 @@ export default function Dashboard(props) {
           }}
         >
           <div style={{ cursor: "pointer" }} onClick={scrollTop}>
-            {smUp ? null : <AppBar currentTab="Home" />}
+            {smUp ? null : <AppBar currentTab="Gallery" />}
             {!smUp ? null : (
               <div
                 style={{
@@ -148,7 +147,7 @@ export default function Dashboard(props) {
                       fontWeight: "bold"
                     }}
                   >
-                    Home
+                    PXL Gallery
                   </Typography>
                 </Button>
               </div>

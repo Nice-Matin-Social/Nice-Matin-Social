@@ -15,6 +15,7 @@ import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
 import WorkOutlineIcon from "@mui/icons-material/WorkOutline";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import EmojiObjectsOutlinedIcon from "@mui/icons-material/EmojiObjectsOutlined";
+import PhotoCameraOutlinedIcon from "@mui/icons-material/PhotoCameraOutlined";
 import StarsOutlinedIcon from "@mui/icons-material/StarsOutlined";
 import AddCircleOutlineRoundedIcon from "@mui/icons-material/AddCircleOutlineRounded";
 import SettingsIcon from "@mui/icons-material/Settings";
@@ -178,6 +179,16 @@ export default function LeftPane(props) {
                   <ListItemText>
                     <Typography variant="body1" color={isSelected("Home")}>
                       Home
+                    </Typography>
+                  </ListItemText>
+                </ListItem>
+                <ListItem button component={Link} to="/gallery">
+                  <ListItemIcon>
+                    <PhotoCameraOutlinedIcon color={isSelected("Gallery")} />
+                  </ListItemIcon>
+                  <ListItemText>
+                    <Typography variant="body1" color={isSelected("Gallery")}>
+                      Gallery
                     </Typography>
                   </ListItemText>
                 </ListItem>
