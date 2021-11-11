@@ -1,29 +1,29 @@
 {
   "appIdentity": {
-    "url": "pxlone.xyz",
-    "title": "PXL One",
-    "subtitle": "",
-    "description": "The BSV token representing user PXL-3000 and his efforts to build a based community of creative heads on Twetch. The token is backed by secret powers and comes with different use cases to support you and your awesome projects with positive vibes.",
+    "url": "eggdao.xyz",
+    "title": "Egg Dao",
+    "subtitle": "We like the egg",
+    "description": "Community tools to grow your wealth - Twetch and earn compounding interest",
     "logo": "./resources/Logo.png",
     "banner": "./resources/Banner.png",
-    "mask": "(📷,🌱)"
+    "mask": "(🥚,🐣)"
   },
   "ownerInfo": {
     "clientIdentifier": "10d3b9a3-3733-4769-9f97-d255ee37113b",
-    "inviteLink": "https://twet.ch/inv/pxl3000invite"
+    "inviteLink": "https://twet.ch/inv/eggdao"
   },
   "customization": {
-    "ticker": "$PXL",
-    "dashBoardFilters": ["#pxlpix", "#pxlvision", "#pxltribe"],
+    "ticker": "$EGG",
+    "dashBoardFilters": ["#eggshell"],
     "palette": {
-      "primary": { "main": "#5549cd" },
-      "secondary": { "main": "#bf64f5" }
+      "primary": { "main": "#b17c01" },
+      "secondary": { "main": "#21e800" }
     },
     "postPrice": "0.02",
     "likePrice": "0.10"
   },
   "welcome": {
-    "externalLink": "https://relayx.com/market/PXL",
-    "buttonText": "Buy PXL One"
+    "externalLink": "https://eggdao.notion.site/EggDAO-cd8f099107704fecac5b8f318d41a330",
+    "buttonText": "Documentation"
   }
 }
