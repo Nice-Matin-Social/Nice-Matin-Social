@@ -7,14 +7,8 @@ class Auth {
   }
 
   login(cb) {
-    try {
-      twetch.authenticate();
-      this.authenticated = true;
-      cb();
-    } catch (e) {
-      this.authenticated = false;
-      console.log(e);
-    }
+    this.authenticated = true;
+    cb();
   }
 
   logout(cb) {

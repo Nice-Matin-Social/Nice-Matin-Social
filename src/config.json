@@ -10,7 +10,8 @@
   },
   "ownerInfo": {
     "clientIdentifier": "10d3b9a3-3733-4769-9f97-d255ee37113b",
-    "inviteLink": "https://twet.ch/inv/eggdao"
+    "inviteLink": "https://twet.ch/inv/eggdao",
+    "moneybuttonClientId": "ce4eb6ea41a4f43044dd7e71c08e50b2"
   },
   "customization": {
     "ticker": "$EGG",

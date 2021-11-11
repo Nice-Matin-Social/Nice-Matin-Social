@@ -1,104 +1,184 @@
-import React from "react";
-import { Link } from "react-router-dom";
-import { Button, Paper, Typography, useTheme } from "@mui/material";
+import React, { useState } from "react";
+import { Link, useHistory } from "react-router-dom";
+import { Backdrop, Button, Paper, Typography, useTheme } from "@mui/material";
 import Mask from "../resources/Mask";
+import MBLogo from "../resources/moneybutton.png";
+import RelayLogo from "../resources/relay.png";
+import HandCashLogo from "../resources/handcash.png";
 import config from "../config.json";
-
+import { TwetchLogin } from "../wallets/twetch";
+import { MBLogin } from "../wallets/moneybutton";
+import { RelayXLogin } from "../wallets/relayx";
+import { HandCashLogin } from "../wallets/handcash";
 import { twquery } from "../api/TwetchGraph";
 
 export default function Auth() {
-  //const history = useHistory();
-  const host = window.location.host;
-  const TwetchLogin = (e) => {
-    // config
-    let redirectUrl = `https://${host}/auth/callback/twetch`;
-    let appName = config.appIdentity.title;
-    e.preventDefault();
-    window.location.href = `https://twetch.app/auth/authorize?appName=${appName}&redirectUrl=${redirectUrl}`;
+  const history = useHistory();
+  const [open, setOpen] = useState(false);
+  const theme = useTheme();
+
+  const handleDrawerToggle = (e) => {
+    e.stopPropagation();
+    setOpen(!open);
   };
 
-  /* const HandCashLogin = (e) => {
-    e.preventDefault();
-    window.location.href = redirectionLoginUrl;
-  }; */
-
-  /* const MBLogin = async () => {
-    // is also in TwetchAction component
-
-    let getPermissionForCurrentUser = () => {
-      return localStorage.token;
-    };
-    const imb = new window.moneyButton.IMB({
-      clientIdentifier: imbCli,
-      permission: getPermissionForCurrentUser(),
-      onNewPermissionGranted: (token) => localStorage.setItem("token", token)
-    });
-    if (!localStorage.getItem("tokenTwetchAuth")) {
-      fetch("https://auth.twetch.app/api/v1/challenge")
-        .then(function (res) {
-          return res.json();
-        })
-        .then(async (resp) => {
-          var cryptoOperations = [
-            {
-              name: "mySignature",
-              method: "sign",
-              data: resp.message,
-              dataEncoding: "utf8",
-              key: "identity",
-              algorithm: "bitcoin-signed-message"
-            },
-            { name: "myPublicKey", method: "public-key", key: "identity" },
-            { name: "myAddress", method: "address", key: "identity" }
-          ];
-          imb.swipe({
-            cryptoOperations: cryptoOperations,
-            onCryptoOperations: async (ops) => {
-              saveWallet(ops[1].paymail, "moneybutton");
-              if (localStorage.getItem("paymail")) {
-                twLogin(ops[2].value, resp.message, ops[0].value, () => {
-                  history.push("/");
-                });
-              }
-            }
-          });
-        });
-    } else {
-      history.push("/");
-    }
-  };
-  const RelayXLogin = async () => {
-    let token = await window.relayone.authBeta({ withGrant: true }),
-      res;
-    localStorage.setItem("token", token);
-    let [payload, signature] = token.split(".");
-    //console.log(signature);
-    const data = JSON.parse(atob(payload));
-
-    fetch("https://auth.twetch.app/api/v1/challenge", { method: "get" })
-      .then((res) => {
-        return res.json();
-      })
-      .then(async (resp) => {
-        try {
-          res = await window.relayone.sign(resp.message);
-          const publicKey = window.bsv.PublicKey.fromHex(data.pubkey);
-          const signAddr = window.bsv.Address.fromPublicKey(
-            publicKey
-          ).toString();
-          if (res) {
-            saveWallet(data.paymail, "relayx");
-            if (localStorage.getItem("paymail")) {
-              twLogin(signAddr, resp.message, res.value, () => {
-                history.push("/");
+  const selectWallet = (
+    <div
+      style={{
+        width: "100%",
+        height: "100%",
+        display: "flex",
+        maxHeight: "100vh",
+        flexDirection: "column"
+      }}
+    >
+      <div
+        style={{
+          display: "flex",
+          flexGrow: 1,
+          userSelect: "none"
+        }}
+      ></div>
+      <div
+        style={{
+          transform: "none",
+          transition: "transform 225ms cubic-bezier(0, 0, 0.2, 1) 0ms",
+          width: "100%",
+          margin: "0 auto",
+          display: "flex",
+          flexDirection: "column",
+          maxWidth: "600px",
+          maxHeight: "50vh",
+          flexSirection: "column"
+        }}
+      >
+        <div
+          style={{
+            display: "flex",
+            padding: "16px",
+            background: "#F6F5FB",
+            borderRadius: "12px 12px 0 0"
+          }}
+        >
+          <Typography
+            variant="body1"
+            style={{
+              color: "#010101",
+              fontSize: "18px",
+              fontWeight: "bold",
+              lineHeight: "24px"
+            }}
+          >
+            Select Wallet
+          </Typography>
+          <div style={{ flexGrow: 1 }} />
+          <Typography
+            variant="body1"
+            style={{
+              color: "#838388",
+              cursor: "pointer",
+              fontSize: "14px",
+              fontWeight: 500,
+              lineHeight: "24px"
+            }}
+          >
+            Cancel
+          </Typography>
+        </div>
+        <div
+          style={{
+            flexGrow: 1,
+            background: "#FFFFFF",
+            overflowY: "auto"
+          }}
+        >
+          {/* <div
+            style={{
+              cursor: "pointer",
+              display: "flex",
+              padding: "10px",
+              borderTop: "1px solid #F0F0F6"
+            }}
+            onClick={RelayXLogin}
+          >
+            <img
+              src={RelayLogo}
+              alt="RelayX"
+              style={{ height: "32px", width: "32px" }}
+            />
+            <Typography
+              variant="body1"
+              style={{
+                color: "#010101",
+                fontSize: "16px",
+                lineHeight: "34px",
+                marginLeft: "10px"
+              }}
+            >
+              RelayX
+            </Typography>
+          </div> */}
+          <div
+            style={{
+              cursor: "pointer",
+              display: "flex",
+              padding: "10px",
+              borderTop: "1px solid #F0F0F6"
+            }}
+            onClick={() => {
+              MBLogin(() => {
+                history.replace("/");
               });
-            }
-          }
-        } catch (e) {
-          console.log(e);
-        }
-      });
-  }; */
+            }}
+          >
+            <img
+              src={MBLogo}
+              alt="MoneyButton"
+              style={{ height: "32px", width: "32px" }}
+            />
+            <Typography
+              variant="body1"
+              style={{
+                color: "#010101",
+                fontSize: "16px",
+                lineHeight: "34px",
+                marginLeft: "10px"
+              }}
+            >
+              MoneyButton
+            </Typography>
+          </div>
+          {/* <div
+            style={{
+              cursor: "pointer",
+              display: "flex",
+              padding: "10px",
+              borderTop: "1px solid #F0F0F6"
+            }}
+            onClick={HandCashLogin}
+          >
+            <img
+              src={HandCashLogo}
+              alt="HandCash"
+              style={{ height: "32px", width: "32px" }}
+            />
+            <Typography
+              variant="body1"
+              style={{
+                color: "#010101",
+                fontSize: "16px",
+                lineHeight: "34px",
+                marginLeft: "10px"
+              }}
+            >
+              HandCash
+            </Typography>
+          </div> */}
+        </div>
+      </div>
+    </div>
+  );
+
   return (
     <div
       style={{
@@ -185,10 +265,9 @@ export default function Auth() {
             }}
             variant="outlined"
             color="primary"
-            href={config.ownerInfo.inviteLink}
-            target="_blank"
+            onClick={handleDrawerToggle}
           >
-            But ser, I don't have a Twetch account
+            Log in with wallet provider
           </Button>
         </div>
         <div
@@ -207,50 +286,45 @@ export default function Auth() {
               maxWidth: "300px"
             }}
           >
-            {/* <Link className="Links" to="/">
-              <p
-                style={{
-                  color: theme.palette.primary.main,
-                  margin: "0 auto",
-                  fontSize: "18px",
-                  textAlign: "center",
-                  lineHeight: "20px"
-                }}
+            <Typography
+              variant="body1"
+              style={{
+                margin: "0 auto",
+                fontSize: "18px",
+                textAlign: "center",
+                lineHeight: "20px"
+              }}
+            >
+              Don't have a Twetch account yet? Grab an invite{" "}
+              <a
+                className="Links"
+                href={config.ownerInfo.inviteLink}
+                target="_blank"
+                rel="noreferrer"
               >
-                Navigate anonymously
-              </p>
-            </Link> */}
+                <span style={{ color: theme.palette.primary.main }}>here</span>
+              </a>
+            </Typography>
           </div>
         </div>
       </Paper>
       <div style={{ flexGrow: 1 }} />
+      <Backdrop
+        style={{
+          opacity: 1,
+          transition: "opacity 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms",
+          width: "100%",
+          height: "100%",
+          zIndex: 1400,
+          position: "absolute",
+          background: "rgba(26, 26, 28, .5)",
+          userSelect: "none"
+        }}
+        open={open}
+        onClick={() => setOpen(false)}
+      >
+        {selectWallet}
+      </Backdrop>
     </div>
   );
 }
-
-export const saveWallet = (paymail, wallet) => {
-  localStorage.setItem("paymail", paymail);
-  localStorage.setItem("wallet", wallet);
-};
-
-export const twLogin = (address, message, signature, callback) => {
-  let obj = { address, message, signature };
-  fetch("https://auth.twetch.app/api/v1/authenticate", {
-    method: "post",
-    body: JSON.stringify(obj),
-    headers: { "Content-type": "application/json" }
-  })
-    .then((res) => {
-      return res.json();
-    })
-    .then(async (resp) => {
-      //console.log(resp);
-      localStorage.setItem("tokenTwetchAuth", resp.token);
-      let { me } = await twquery(`{ me { id icon name } }`);
-      //console.log({ me });
-      localStorage.setItem("id", me.id);
-      localStorage.setItem("icon", me.icon);
-      localStorage.setItem("name", me.name);
-      callback();
-    });
-};

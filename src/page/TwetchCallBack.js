@@ -18,6 +18,7 @@ export default function TwetchCallback(props) {
   let params = new URLSearchParams(document.location.search.substring(1));
   let tokenTwetch = params.get("token");
   localStorage.setItem("tokenTwetchAuth", tokenTwetch);
+  localStorage.setItem("wallet", "twetch");
   const twetch = new Twetch();
 
   const axiosTwetchGraphQL = axios.create({
