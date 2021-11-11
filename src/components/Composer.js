@@ -18,24 +18,30 @@ import {
 } from "@mui/material";
 import { Alert } from "@mui/material";
 import { Link, useHistory, useLocation } from "react-router-dom";
+import { digestMessage } from "../utils/crypto";
 import { twquery } from "../api/TwetchGraph";
 import config from "../config.json";
+import imbCli from "../wallets/moneybutton";
+import { BSVABI } from "../utils/BSVABI";
+import { Helpers, TWETCH } from "../wallets/twetch";
+import { getABI, getPayees, publishRequest } from "../api/TwetchActions";
 
 const Twetch = require("@twetch/sdk");
 
 export default function Composer(props) {
-  const window = props.window;
+  const window1 = props.window;
   const location = useLocation();
 
   const history = useHistory();
   const theme = useTheme();
   const container =
-    window !== undefined ? () => window().document.body : undefined;
+    window1 !== undefined ? () => window().document.body : undefined;
   const ticker = config.customization.ticker;
   const replyTx = location.pathname.split("/")[2];
   const [type, setType] = useState("default");
   const [placeholder, setPlaceholder] = useState("What's the latest?");
   const [content, setContent] = useState("");
+  const [estimate, setEstimate] = useState(0);
   const [open, setOpen] = useState(false);
   const [success, setSuccess] = useState(false);
   const [replyCount, setReplyCount] = useState(0);
@@ -48,8 +54,10 @@ export default function Composer(props) {
   const bitAmount = parseFloat(dolAmount / exchangeRate).toFixed(8);
 
   useEffect(() => {
-    const pKey = twetch.crypto.privFromMnemonic(localStorage.mnemonic);
-    twetch.wallet.restore(pKey);
+    if (localStorage.wallet === "twetch") {
+      const pKey = twetch.crypto.privFromMnemonic(localStorage.mnemonic);
+      twetch.wallet.restore(pKey);
+    }
     if (replyTx) {
       twquery(`{
         allPosts(
@@ -71,6 +79,26 @@ export default function Composer(props) {
     }
   });
 
+  useEffect(() => {
+    const timeoutId = setTimeout(() => {
+      if (content.length > 0) {
+        let payload = {
+          bContent: content,
+          mapReply: replyTx,
+          mapComment: type !== "default" ? `${ticker} #${type}` : ticker,
+          contentType: "text/plain"
+        };
+        let desc = Helpers.Post.description(payload);
+        let post = { description: desc };
+        let estim = Helpers.Post.estimate(post);
+        setEstimate(estim);
+      } else {
+        setEstimate(0);
+      }
+    }, 1000);
+    return () => clearTimeout(timeoutId);
+  }, [content]);
+
   const handleChangeContent = (e) => {
     setContent(e.target.value);
   };
@@ -79,6 +107,7 @@ export default function Composer(props) {
     e.preventDefault();
     if (localStorage.isOneClick === "false") {
       setOpen(true);
+      twetchPost(content, replyTx);
     } else {
       twetchPost(content, replyTx)
         .then((res) => {
@@ -297,61 +326,78 @@ export default function Composer(props) {
                 </Paper>
               </div>
             </div>
-            <div id="detail" style={{}}>
+            {localStorage.wallet === "twetch" && (
+              <div id="detail" style={{}}>
+                <div
+                  style={{
+                    margin: "0 0 26px 0",
+                    borderRadius: "6px"
+                  }}
+                >
+                  <Typography
+                    style={{
+                      color: theme.palette.text.primary,
+                      margin: "0 auto",
+                      fontSize: "36px",
+                      textAlign: "center",
+                      fontWeight: 600,
+                      lineHeight: "44px"
+                    }}
+                    variant="h3"
+                  >
+                    ${dolAmount}
+                  </Typography>
+                  <Typography
+                    sx={{
+                      color: theme.palette.text.secondary,
+                      margin: "0 auto",
+                      fontSize: "16px",
+                      marginTop: "2px",
+                      textAlign: "center",
+                      lineHeight: "20px",
+                      marginBottom: "18px"
+                    }}
+                    variant="h6"
+                  >
+                    {bitAmount} BSV
+                  </Typography>
+                </div>
+              </div>
+            )}
+            {localStorage.wallet === "twetch" && (
+              <div style={{ display: "flex" }}>
+                <div style={{ flexGrow: 1 }} />
+                <Button
+                  style={{
+                    width: "257px",
+                    padding: "14px",
+                    fontSize: "16px",
+                    fontWeight: 600,
+                    lineWeight: "24px",
+                    textTransform: "none"
+                  }}
+                  color="primary"
+                  variant="contained"
+                  onClick={handle1Click}
+                >
+                  Twetch It!
+                </Button>
+
+                <div style={{ flexGrow: 1 }} />
+              </div>
+            )}
+            {localStorage.wallet === "moneybutton" && (
               <div
                 style={{
-                  margin: "0 0 26px 0",
-                  borderRadius: "6px"
+                  position: "relative",
+                  display: "inline-block",
+                  marginLeft: "21px",
+                  width: "280px",
+                  height: "50px"
                 }}
-              >
-                <Typography
-                  style={{
-                    color: theme.palette.text.primary,
-                    margin: "0 auto",
-                    fontSize: "36px",
-                    textAlign: "center",
-                    fontWeight: 600,
-                    lineHeight: "44px"
-                  }}
-                  variant="h3"
-                >
-                  ${dolAmount}
-                </Typography>
-                <Typography
-                  sx={{
-                    color: theme.palette.text.secondary,
-                    margin: "0 auto",
-                    fontSize: "16px",
-                    marginTop: "2px",
-                    textAlign: "center",
-                    lineHeight: "20px",
-                    marginBottom: "18px"
-                  }}
-                  variant="h6"
-                >
-                  {bitAmount} BSV
-                </Typography>
-              </div>
-            </div>
-            <div style={{ display: "flex" }}>
-              <div style={{ flexGrow: 1 }} />
-              <Button
-                style={{
-                  width: "257px",
-                  padding: "14px",
-                  fontSize: "16px",
-                  fontWeight: 600,
-                  lineWeight: "24px",
-                  textTransform: "none"
-                }}
-                color="primary"
-                variant="contained"
-                onClick={handle1Click}
-              >
-                Twetch It!
-              </Button>
-              <div style={{ flexGrow: 1 }} />
-            </div>
+                id="moneybutton-post"
+              ></div>
+            )}
             <div style={{ height: "10vh" }} />
           </Paper>
           <div style={{ flexGrow: 1 }}></div>
@@ -361,20 +407,108 @@ export default function Composer(props) {
   );
 
   const twetchPost = async (text, replyTx) => {
+    const action = "twetch/post@0.0.1";
+    let abi;
+
+    //Construct Twetch ABI
+    if (localStorage.abi) {
+      abi = new BSVABI(JSON.parse(localStorage.getItem("abi")), { action });
+    } else {
+      abi = await getABI();
+      localStorage.setItem("abi", JSON.stringify(abi));
+    }
     const payload = {
       bContent: text,
       mapReply: replyTx,
       mapComment: type !== "default" ? `${ticker} #${type}` : ticker
     };
-
-    twetch
-      .publish("twetch/post@0.0.1", payload)
-      .then((res) => {
-        console.log(res);
-      })
-      .catch((err) => {
-        console.log(err);
+    abi.fromObject(payload);
+    let payees = await getPayees({ args: abi.toArray(), action });
+    //TODO custom Post Amount
+    //TODO royalties ?
+    await abi.replace({ "#{invoice}": () => payees.invoice });
+    let arg = abi.action.args.find((e) => e.type === "Signature");
+    const ab = abi
+      .toArray()
+      .slice(arg.messageStartIndex || 0, arg.messageEndIndex + 1);
+    const contentHash = await digestMessage(ab);
+    if (localStorage.wallet === "moneybutton") {
+      let outputScript = window.bsv.Script.buildSafeDataOut(
+        abi.toArray()
+      ).toASM();
+      let outputs = [{ currency: "BSV", amount: 0, script: outputScript }];
+      outputs = outputs.concat(payees.payees);
+      //console.log(outputs);
+      let cryptoOperations = [
+        { name: "myAddress", method: "address", key: "identity" },
+        {
+          name: "mySignature",
+          method: "sign",
+          data: contentHash,
+          dataEncoding: "utf8",
+          key: "identity",
+          algorithm: "bitcoin-signed-message"
+        }
+      ];
+      let getPermissionForCurrentUser = () => {
+        return localStorage.token;
+      };
+      const imb = new window.moneyButton.IMB({
+        clientIdentifier: imbCli,
+        permission: getPermissionForCurrentUser(),
+        onNewPermissionGranted: (token) => localStorage.setItem("token", token)
       });
+
+      localStorage.isOneClick === "true" &&
+        imb.swipe({
+          outputs,
+          cryptoOperations,
+          onPayment: async (payment) => {
+            console.log(payment);
+            await publishRequest({
+              signed_raw_tx: payment.rawtx,
+              action: action,
+              broadcast: true,
+              invoice: payees.invoice,
+              payParams: {
+                tweetFromTwetch: false,
+                hideTweetFromTwetchLink: false
+              }
+            });
+          },
+          onError: (err) => console.log(err)
+        });
+      localStorage.isOneClick === "false" &&
+        window.moneyButton.render(document.getElementById("moneybutton-post"), {
+          label: "Twetch It",
+          outputs,
+          cryptoOperations,
+          onPayment: async (payment) => {
+            console.log(payment);
+            await publishRequest({
+              signed_raw_tx: payment.rawtx,
+              action: action,
+              broadcast: true,
+              invoice: payees.invoice,
+              payParams: {
+                tweetFromTwetch: false,
+                hideTweetFromTwetchLink: false
+              }
+            });
+          }
+        });
+    } else {
+      //TODO Custom post Price
+      //TODO additional scripts
+      twetch
+        .publish("twetch/post@0.0.1", payload)
+        .then((res) => {
+          console.log(res);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
   };
 
   const handleCloseSuccess = (event, reason) => {
@@ -448,54 +582,25 @@ export default function Composer(props) {
             </div>
           </Grid>
           <Grid item>
-            <Grid container style={{ width: "100%" }}>
+            <Grid container spacing={2} style={{ width: "100%" }}>
               <div style={{ flexGrow: 1 }}></div>
-              <Grid item xs={9}>
-                {/* <FormControl component="fieldset">
-                  <FormLabel component="legend">Post Type</FormLabel>
-                  <RadioGroup
-                    row
-                    aria-label="type"
-                    name="row-radio-buttons-group"
-                    value={type}
-                  >
-                    <FormControlLabel
-                      value="default"
-                      control={<Radio />}
-                      label=""
-                    />
-                    <FormControlLabel
-                      value="ideas"
-                      control={<Radio />}
-                      label="🥚"
-                    />
-                    <FormControlLabel
-                      value="projects"
-                      control={<Radio />}
-                      label="🐣"
-                    />
-                  </RadioGroup>
-                </FormControl> */}
-              </Grid>
-
-              <Grid item xs={3}>
-                <Button
-                  style={{
-                    height: "32px",
-                    marginLeft: "16px",
-                    marginTop: "10px",
-                    textTransform: "none",
-                    transition: "color .01s"
-                  }}
-                  variant="contained"
-                  color="primary"
-                  type="submit"
-                  disabled={!content || content.length > 256}
-                  onClick={handleSubmit}
-                >
-                  Post
-                </Button>
-              </Grid>
+              <Button
+                style={{
+                  height: "32px",
+                  marginLeft: "16px",
+                  marginTop: "10px",
+                  textTransform: "none",
+                  wordWrap: "none",
+                  transition: "color .01s"
+                }}
+                variant="contained"
+                color="primary"
+                type="submit"
+                disabled={!content || content.length > 256}
+                onClick={handleSubmit}
+              >
+                {estimate > 0 ? `Post $${estimate}` : "Post"}
+              </Button>
             </Grid>
           </Grid>
         </Grid>

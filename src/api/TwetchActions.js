@@ -130,7 +130,6 @@ export const publishRequest = async (payload) => {
     body: JSON.stringify(payload)
   });
   let jres = await res.json();
-  console.log(jres, jres?.errors);
   return jres;
 };
 

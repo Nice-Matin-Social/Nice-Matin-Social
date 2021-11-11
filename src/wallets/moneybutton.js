@@ -1,6 +1,7 @@
 import auth from "../utils/auth";
 import config from "../config.json";
 import { twLogin, saveWallet } from "./index";
+import TWETCH from "./twetch";
 export const imbCli = window.location.href.includes("csb")
   ? "d1782f2caa2a71f85576cc0423818882"
   : config.ownerInfo.moneybuttonClientId;
@@ -46,3 +47,56 @@ export const MBLogin = async (cb) => {
       });
     });
 };
+
+export async function MBPost() {
+  const { abi, payees } = await TWETCH.build("twetch/post@0.0.1", {
+    bContent: "Hello World from Twetch SDK w/ MoneyButton"
+  });
+  const outputs = [
+    {
+      currency: "BSV",
+      amount: 0,
+      script: bsv.Script.buildSafeDataOut(abi.toArray()).toASM()
+    }
+  ].concat(payees);
+  const cryptoOperations = [
+    {
+      name: "myAddress",
+      method: "address",
+      key: "identity"
+    },
+    {
+      name: "mySignature",
+      method: "sign",
+      data: abi.contentHash(),
+      dataEncoding: "utf8",
+      key: "identity",
+      algorithm: "bitcoin-signed-message"
+    }
+  ];
+
+  moneyButton.render(document.getElementById("moneybutton-sign"), {
+    label: "Signing Address",
+    outputs: [],
+    cryptoOperations,
+    onCryptoOperations: async (cryptoOperations) => {
+      const address = cryptoOperations.find((e) => e.name === "myAddress")
+        .value;
+      document.getElementById(
+        "signing-address"
+      ).innerHTML = `Signing Address: ${address}`;
+    }
+  });
+
+  moneyButton.render(document.getElementById("moneybutton-post"), {
+    label: "Twetch It",
+    outputs,
+    cryptoOperations,
+    onPayment: async (payment) => {
+      await sdk.publishRequest({
+        signed_raw_tx: payment.rawtx,
+        action: "twetch/post@0.0.1"
+      });
+    }
+  });
+}
