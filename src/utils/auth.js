@@ -5,7 +5,11 @@ class Auth {
   constructor() {
     this.authenticated = localStorage.tokenTwetchAuth || false;
   }
-
+  anon(cb) {
+    localStorage.setItem("tokenTwetchAuth", "anon");
+    this.authenticated = true;
+    cb();
+  }
   login(cb) {
     this.authenticated = true;
     cb();

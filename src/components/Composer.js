@@ -77,6 +77,10 @@ export default function Composer(props) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    if (localStorage.tokenTwetchAuth === "anon") {
+      alert("Please, Log In");
+      return;
+    }
     if (localStorage.isOneClick === "false") {
       setOpen(true);
     } else {
