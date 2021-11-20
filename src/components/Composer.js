@@ -18,7 +18,8 @@ import {
 } from "@mui/material";
 import { Alert } from "@mui/material";
 import { Link, useHistory, useLocation } from "react-router-dom";
-import { twquery } from "../api/TwetchGraph";
+import { twquery, FetchPostDetail } from "../api/TwetchGraph";
+import Quote from "./Quote";
 import config from "../config.json";
 
 const Twetch = require("@twetch/sdk");
@@ -26,7 +27,7 @@ const Twetch = require("@twetch/sdk");
 export default function Composer(props) {
   const window = props.window;
   const location = useLocation();
-
+  const branchTx = location.search.split("=")[1];
   const history = useHistory();
   const theme = useTheme();
   const container =
@@ -34,6 +35,7 @@ export default function Composer(props) {
   const ticker = config.customization.ticker;
   const replyTx = location.pathname.split("/")[2];
   const [type, setType] = useState("default");
+  const [quote, setQuote] = useState({});
   const [placeholder, setPlaceholder] = useState("What's the latest?");
   const [content, setContent] = useState("");
   const [open, setOpen] = useState(false);
@@ -68,6 +70,11 @@ export default function Composer(props) {
           `In reply to ${res.allPosts.edges[0].node.userByUserId.name}`
         )
       );
+    }
+    if(branchTx){
+      FetchPostDetail(branchTx).then((res)=>{
+        setQuote(res.allPosts.edges[0])
+      })
     }
   });
 
@@ -365,12 +372,14 @@ export default function Composer(props) {
   );
 
   const twetchPost = async (text, replyTx) => {
+    if (branchTx){
+      text = text + ` https://twetch.app/t/${branchTx}`;
+    }
     const payload = {
       bContent: text,
       mapReply: replyTx,
       mapComment: type !== "default" ? `${ticker} #${type}` : ticker
     };
-
     twetch
       .publish("twetch/post@0.0.1", payload)
       .then((res) => {
@@ -403,6 +412,7 @@ export default function Composer(props) {
         <Grid container direction="column" style={{ padding: "16px" }}>
           <Grid item>
             <TextField
+            variant="standard"
               placeholder={placeholder}
               InputProps={{
                 startAdornment: (
@@ -417,6 +427,7 @@ export default function Composer(props) {
               value={content}
               onChange={(event) => handleChangeContent(event)}
             />
+            {quote.node && <Quote {...quote} tx={branchTx}/>} 
           </Grid>
           <Grid item>
             <div style={{ display: "flex" }}>
