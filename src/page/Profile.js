@@ -244,7 +244,7 @@ export default function Profile(props) {
                     verticalAlign: "top",
                     marginLeft: "4px"
                   }}
-                >{`#${userData.id}`}</div>
+                >{`@${userData.id}`}</div>
                 <div>{userData.description}</div>
                 <a
                   className="Links"
