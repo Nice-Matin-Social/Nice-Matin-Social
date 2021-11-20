@@ -3,9 +3,9 @@ import { useHistory, Link } from "react-router-dom";
 import { Avatar, Grid, IconButton, Typography, useTheme } from "@mui/material";
 import LikeIcon from "../resources/LikeIcon";
 import ReplyIcon from "../resources/ReplyIcon";
-import BoostIcon from "../resources/BoostIcon";
 import CopyIcon from "../resources/CopyIcon";
 import BranchIcon from "../resources/BranchIcon";
+import BranchIcon1 from "../resources/BranchIcon1";
 import TwetchLogo from "../resources/TwetchLogo";
 import Timestamp from "../utils/Timestamp";
 import PostDescription from "./PostDescription";
@@ -52,7 +52,7 @@ export default function Post(props) {
               to={`/u/${branchedById}`}
               onClick={(e) => e.stopPropagation()}
             >
-              <BranchIcon
+              <BranchIcon1
                 style={{
                   width: "18px",
                   height: "18px",
@@ -250,8 +250,8 @@ export default function Post(props) {
                     count={postData.postsByReplyPostId.totalCount}
                   />
                 </Grid>
-                <Grid item className="Boost">
-                  <BoostIcon tx={postData.transaction} count={diff} />
+                <Grid item className="Branch">
+                  <BranchIcon branchedCalc={postData.youBranchedCalc} count={postData.branches.totalCount} tx={postData.transaction} />
                 </Grid>
                 <Grid item className="Copy">
                   <CopyIcon tx={postData.transaction} />

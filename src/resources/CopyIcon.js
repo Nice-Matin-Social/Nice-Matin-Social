@@ -23,9 +23,9 @@ export default function CopyIcon(props) {
   };
 
   return (
-    <div>
+    <div >
       <IconButton onClick={handleClick}>
-        <FilterNoneIcon />
+        <FilterNoneIcon style={{color:"#696969"}} />
       </IconButton>
       <Snackbar open={copied} autoHideDuration={3000} onClose={handleClose}>
         <Alert severity="success">Copied to clipboard</Alert>

@@ -16,6 +16,9 @@ const PostFields = `{
   createdAt
   files
   id
+  branches {
+    totalCount
+  }
   numLikes
   postsByReplyPostId {
     totalCount
@@ -23,6 +26,7 @@ const PostFields = `{
   replyPostId
   transaction
   type
+  youBranchedCalc
   youLikedCalc
   userId
   userByUserId {
