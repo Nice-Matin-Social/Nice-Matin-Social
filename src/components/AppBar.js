@@ -124,7 +124,7 @@ export default function AppBar(props) {
                     src={localStorage.getItem("icon")}
                     alt={`${localStorage.getItem("name")}'s avatar`}
                   />
-                  <div>
+                  <div style={{ maxWidth: "222px" }}>
                     <Link
                       className="Links"
                       to={`/u/${localStorage.id}`}

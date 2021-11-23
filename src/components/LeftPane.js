@@ -92,7 +92,7 @@ export default function LeftPane(props) {
                     src={localStorage.getItem("icon")}
                     alt={`Avatar de ${localStorage.getItem("name")}`}
                   />
-                  <div>
+                  <div style={{ maxWidth: "111px" }}>
                     <Link
                       className="Links"
                       to={`/u/${localStorage.id}`}
