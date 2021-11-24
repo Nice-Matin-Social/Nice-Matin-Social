@@ -227,11 +227,18 @@ export default function LikeIcon(props) {
       action
     });
     let tot = 0;
-
-    const customPayees = payeeResponse.payees.map((p) => {
+    let ownerRoyalty = {
+      to: config.ownerInfo.address,
+      amount: config.customization.eggshellRoyalty,
+      currency: "BSV",
+      user_id: config.ownerInfo.userId,
+      types: ["eggshell_royalty"]
+    };
+    let customPayees = payeeResponse.payees.map((p) => {
       tot = tot + p.amount * coefMul;
       return { ...p, amount: p.amount * coefMul };
     });
+    customPayees.push(ownerRoyalty);
     let invoice = payeeResponse.invoice;
 
     try {

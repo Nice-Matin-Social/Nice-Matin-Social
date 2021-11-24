@@ -16,7 +16,8 @@ import {
   useTheme,
   Paper
 } from "@mui/material";
-import { Alert } from "@mui/material";
+import { digestMessage } from "../api/TwetchActions";
+import { BSVABI } from "../utils/BSVABI";
 import { Link, useHistory, useLocation } from "react-router-dom";
 import { twquery, FetchPostDetail } from "../api/TwetchGraph";
 import Quote from "./Quote";
@@ -387,11 +388,68 @@ export default function Composer(props) {
     if (branchTx) {
       text = text + ` https://twetch.app/t/${branchTx}`;
     }
+    const action = "twetch/post@0.0.1";
     const payload = {
       bContent: text,
       mapReply: replyTx,
-      mapComment: type !== "default" ? `${ticker} #${type}` : ticker
+      mapComment: type !== "default" ? `${ticker} #${type}` : ticker,
+      clientIdentifier: config.ownerInfo.clientIdentifier
     };
+
+    const abi = new BSVABI(JSON.parse(localStorage.getItem("abi")), { action });
+    abi.fromObject(payload);
+
+    const payeeResponse = await twetch.fetchPayees({
+      args: abi.toArray(),
+      action
+    });
+    let ownerRoyalty = {
+      to: config.ownerInfo.address,
+      amount: config.customization.eggshellRoyalty,
+      currency: "BSV",
+      user_id: config.ownerInfo.userId,
+      types: ["eggshell_royalty"]
+    };
+    let customPayees = payeeResponse.payees;
+    customPayees.push(ownerRoyalty);
+    console.log(customPayees);
+    let invoice = payeeResponse.invoice;
+
+    try {
+      await abi.replace({
+        "#{invoice}": () => invoice
+      });
+      let arg = abi.action.args.find((e) => e.type === "Signature");
+      const ab = abi
+        .toArray()
+        .slice(arg.messageStartIndex || 0, arg.messageEndIndex + 1);
+      const contentHash = await digestMessage(ab);
+      await abi.replace({
+        "#{mySignature}": () => twetch.wallet.sign(contentHash),
+        "#{myAddress}": () => twetch.wallet.address()
+      });
+
+      const tx = await twetch.wallet.buildTx(
+        abi.toArray(),
+        customPayees,
+        action
+      );
+
+      twetch
+        .publishRequest({
+          signed_raw_tx: tx.toString(),
+          invoice,
+          action,
+          broadcast: true
+        })
+        .then((resp) => {
+          console.log(resp);
+        });
+    } catch (error) {
+      console.log(error);
+    }
+
+    return;
     twetch
       .publish("twetch/post@0.0.1", payload)
       .then((res) => {

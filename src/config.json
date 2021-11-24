@@ -11,7 +11,8 @@
   "ownerInfo": {
     "clientIdentifier": "10d3b9a3-3733-4769-9f97-d255ee37113b",
     "inviteLink": "https://twet.ch/inv/eggdao",
-    "moneybuttonClientId": "ce4eb6ea41a4f43044dd7e71c08e50b2"
+    "address": "1C2meU6ukY9S4tY6DdbhNqc8PuDhif5vPE",
+    "userId": "652"
   },
   "customization": {
     "ticker": "$EGG",
@@ -20,8 +21,9 @@
       "primary": { "main": "#b17c01" },
       "secondary": { "main": "#21e800" }
     },
+    "eggshellRoyalty": 0.00001306,
     "postPrice": "0.02",
-    "likePrice": "0.10"
+    "likePrice": "0.05"
   },
   "welcome": {
     "externalLink": "https://eggdao.notion.site/EggDAO-cd8f099107704fecac5b8f318d41a330",
