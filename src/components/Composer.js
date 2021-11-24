@@ -39,12 +39,13 @@ export default function Composer(props) {
   const [placeholder, setPlaceholder] = useState("What's the latest?");
   const [content, setContent] = useState("");
   const [open, setOpen] = useState(false);
-  const [success, setSuccess] = useState(false);
-  const [replyCount, setReplyCount] = useState(0);
-  const [error, setError] = useState(false);
+  const [estimate, setEstimate] = useState(
+    parseFloat(config.customization.postPrice)
+  );
   const twetch = new Twetch({
     clientIdentifier: config.ownerInfo.clientIdentifier
   });
+  const Helpers = twetch.Helpers;
   const exchangeRate = twetch.Helpers.exchangeRate.price;
   const dolAmount = config.customization.postPrice;
   const bitAmount = parseFloat(dolAmount / exchangeRate).toFixed(8);
@@ -71,12 +72,23 @@ export default function Composer(props) {
         )
       );
     }
-    if(branchTx){
-      FetchPostDetail(branchTx).then((res)=>{
-        setQuote(res.allPosts.edges[0])
-      })
+    if (branchTx) {
+      FetchPostDetail(branchTx).then((res) => {
+        setQuote(res.allPosts.edges[0]);
+      });
     }
   });
+
+  useEffect(() => {
+    const timeoutId = setTimeout(() => {
+      if (content.length > 0) {
+        if (branchTx) {
+          setEstimate(estimate + 0.01);
+        }
+      }
+    }, 1000);
+    return () => clearTimeout(timeoutId);
+  }, [content]);
 
   const handleChangeContent = (e) => {
     setContent(e.target.value);
@@ -326,7 +338,7 @@ export default function Composer(props) {
                   }}
                   variant="h3"
                 >
-                  ${dolAmount}
+                  ${estimate}
                 </Typography>
                 <Typography
                   sx={{
@@ -340,7 +352,7 @@ export default function Composer(props) {
                   }}
                   variant="h6"
                 >
-                  {bitAmount} BSV
+                  {parseFloat(estimate / exchangeRate).toFixed(8)} BSV
                 </Typography>
               </div>
             </div>
@@ -372,7 +384,7 @@ export default function Composer(props) {
   );
 
   const twetchPost = async (text, replyTx) => {
-    if (branchTx){
+    if (branchTx) {
       text = text + ` https://twetch.app/t/${branchTx}`;
     }
     const payload = {
@@ -390,29 +402,12 @@ export default function Composer(props) {
       });
   };
 
-  const handleCloseSuccess = (event, reason) => {
-    if (reason === "clickaway") {
-      return;
-    }
-
-    setSuccess(false);
-  };
-
-  const handleCloseError = (event, reason) => {
-    if (reason === "clickaway") {
-      return;
-    }
-
-    setError(false);
-  };
-
   return (
     <div>
       <form noValidate autoComplete="off" onSubmit={handleSubmit}>
         <Grid container direction="column" style={{ padding: "16px" }}>
           <Grid item>
             <TextField
-            variant="standard"
               placeholder={placeholder}
               InputProps={{
                 startAdornment: (
@@ -427,7 +422,7 @@ export default function Composer(props) {
               value={content}
               onChange={(event) => handleChangeContent(event)}
             />
-            {quote.node && <Quote {...quote} tx={branchTx}/>} 
+            {quote.node && <Quote {...quote} tx={branchTx} />}
           </Grid>
           <Grid item>
             <div style={{ display: "flex" }}>
@@ -463,37 +458,10 @@ export default function Composer(props) {
             </div>
           </Grid>
           <Grid item>
-            <Grid container style={{ width: "100%" }}>
+            <div style={{ display: "flex", width: "100%" }}>
               <div style={{ flexGrow: 1 }}></div>
-              <Grid item xs={9}>
-                {/* <FormControl component="fieldset">
-                  <FormLabel component="legend">Post Type</FormLabel>
-                  <RadioGroup
-                    row
-                    aria-label="type"
-                    name="row-radio-buttons-group"
-                    value={type}
-                  >
-                    <FormControlLabel
-                      value="default"
-                      control={<Radio />}
-                      label=""
-                    />
-                    <FormControlLabel
-                      value="ideas"
-                      control={<Radio />}
-                      label="🥚"
-                    />
-                    <FormControlLabel
-                      value="projects"
-                      control={<Radio />}
-                      label="🐣"
-                    />
-                  </RadioGroup>
-                </FormControl> */}
-              </Grid>
 
-              <Grid item xs={3}>
+              <div>
                 <Button
                   style={{
                     height: "32px",
@@ -508,25 +476,13 @@ export default function Composer(props) {
                   disabled={!content || content.length > 256}
                   onClick={handleSubmit}
                 >
-                  Post
+                  ${estimate} Post
                 </Button>
-              </Grid>
-            </Grid>
+              </div>
+            </div>
           </Grid>
         </Grid>
       </form>
-      <Snackbar
-        open={success}
-        autoHideDuration={4200}
-        onClose={handleCloseSuccess}
-      >
-        <Alert onClose={handleCloseSuccess} severity="info"></Alert>
-      </Snackbar>
-      <Snackbar open={error} autoHideDuration={4200} onClose={handleCloseError}>
-        <Alert onClose={handleCloseError} severity="error">
-          Error
-        </Alert>
-      </Snackbar>
       <Drawer
         style={{
           position: "fixed",
