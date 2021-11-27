@@ -37,7 +37,7 @@ export default function Composer(props) {
   const replyTx = location.pathname.split("/")[2];
   const [type, setType] = useState("default");
   const [quote, setQuote] = useState({});
-  const [placeholder, setPlaceholder] = useState("What's the latest?");
+  const [placeholder, setPlaceholder] = useState("Quoi de neuf ?");
   const [content, setContent] = useState("");
   const [open, setOpen] = useState(false);
   const [estimate, setEstimate] = useState(
@@ -69,7 +69,7 @@ export default function Composer(props) {
         }
       }`).then((res) =>
         setPlaceholder(
-          `In reply to ${res.allPosts.edges[0].node.userByUserId.name}`
+          `En réponse à ${res.allPosts.edges[0].node.userByUserId.name}`
         )
       );
     }
@@ -99,7 +99,7 @@ export default function Composer(props) {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (localStorage.tokenTwetchAuth === "anon") {
-      alert("Please, Log In");
+      alert("Veuillez vous connecter !");
       return;
     }
     if (localStorage.isOneClick === "false") {
@@ -216,7 +216,7 @@ export default function Composer(props) {
                 }}
                 onClick={handleDrawerToggle}
               >
-                Close
+                Fermer
               </p>
             </Paper>
             <div
@@ -340,7 +340,7 @@ export default function Composer(props) {
                   }}
                   variant="h3"
                 >
-                  ${estimate}
+                  {estimate} €
                 </Typography>
                 <Typography
                   sx={{
@@ -373,7 +373,7 @@ export default function Composer(props) {
                 variant="contained"
                 onClick={handle1Click}
               >
-                Twetch It!
+                Envoyer
               </Button>
               <div style={{ flexGrow: 1 }} />
             </div>
@@ -535,7 +535,7 @@ export default function Composer(props) {
                   disabled={!content || content.length > 256}
                   onClick={handleSubmit}
                 >
-                  ${estimate} Post
+                  {estimate} € Poster
                 </Button>
               </div>
             </div>
