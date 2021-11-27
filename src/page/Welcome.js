@@ -88,7 +88,7 @@ export default function Welcome() {
                       </Link>
                     </Button>
                   </Grid>
-                  <Grid item>
+                  {/* <Grid item>
                     <Button
                       href="https://relayx.com/market/PXL"
                       target="_blank"
@@ -102,7 +102,7 @@ export default function Welcome() {
                     >
                       {config.welcome.buttonText}
                     </Button>
-                  </Grid>
+                  </Grid> */}
                 </Grid>
               </div>
               <div style={{ flexGrow: 1 }} />
