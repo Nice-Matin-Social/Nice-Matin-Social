@@ -93,7 +93,7 @@ export default function AppBar(props) {
             variant="body1"
             onClick={handleDrawerToggle}
           >
-            Close
+            Fermer
           </Typography>
         </div>
         <div
@@ -161,7 +161,7 @@ export default function AppBar(props) {
                   to="/auth"
                   style={{ textTransform: "none" }}
                 >
-                  Log In
+                  Se Connecter
                 </Button>
               </div>
             )}
@@ -180,7 +180,7 @@ export default function AppBar(props) {
                   </ListItemIcon>
                   <ListItemText>
                     <Typography variant="body1" color={isSelected("Home")}>
-                      Home
+                      Accueil
                     </Typography>
                   </ListItemText>
                 </ListItem>
@@ -190,7 +190,7 @@ export default function AppBar(props) {
                   </ListItemIcon>
                   <ListItemText>
                     <Typography variant="body1" color={isSelected("Settings")}>
-                      Settings
+                      Réglages
                     </Typography>
                   </ListItemText>
                 </ListItem>
@@ -254,7 +254,7 @@ export default function AppBar(props) {
           {localStorage.tokenTwetchAuth === "anon" ? (
             <Link style={{ textDecoration: "none" }} to="/auth">
               <Button style={{ textTransform: "none" }} color="primary">
-                Log In
+                Se Connecter
               </Button>
             </Link>
           ) : (
