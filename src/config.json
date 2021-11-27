@@ -1,25 +1,25 @@
 {
   "appIdentity": {
-    "url": "eggdao.xyz",
-    "title": "Egg Dao",
-    "subtitle": "We like the egg",
-    "description": "Community tools to grow your wealth - Twetch and earn compounding interest",
+    "url": "nicematin.social",
+    "title": "Nice Matin",
+    "subtitle": "(vrai) réseau social depuis 2022",
+    "description": "Reprendre le contrôle de nos medias",
     "logo": "./resources/Logo.png",
     "banner": "./resources/Banner.png",
-    "mask": "(🥚,🐣)"
+    "mask": "🟥⬛"
   },
   "ownerInfo": {
-    "clientIdentifier": "10d3b9a3-3733-4769-9f97-d255ee37113b",
-    "inviteLink": "https://twet.ch/inv/eggdao",
+    "clientIdentifier": "a180af92-2a5b-46a7-9941-f62180c21898",
+    "inviteLink": "https://twet.ch/inv/zeroschool",
     "address": "1C2meU6ukY9S4tY6DdbhNqc8PuDhif5vPE",
     "userId": "652"
   },
   "customization": {
-    "ticker": "$EGG",
-    "dashBoardFilters": ["#eggshell"],
+    "ticker": "$NCE",
+    "dashBoardFilters": [],
     "palette": {
-      "primary": { "main": "#b17c01" },
-      "secondary": { "main": "#21e800" }
+      "primary": { "main": "#00bfa5" },
+      "secondary": { "main": "#b388ff" }
     },
     "eggshellRoyalty": 0.00001306,
     "postPrice": "0.02",
