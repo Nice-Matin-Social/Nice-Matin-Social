@@ -33,6 +33,29 @@ export default function NotifDetail(props) {
     e.stopPropagation();
     history.push(props.url);
   };
+  let desc;
+  switch (props.type) {
+    case "like":
+      desc = "a aimé votre twetch";
+      break;
+    case "reply":
+      desc = "a répondu a votre twetch";
+      break;
+    case "branch":
+      desc = "a branché votre twetch";
+      break;
+    case "mention":
+      desc = "vous a mentionné";
+      break;
+    case "follower":
+      desc = "vous suit";
+      break;
+    case "payment":
+      desc = "vous a payé";
+      break;
+    default:
+      break;
+  }
   return (
     <Grid item xs={12} onClick={getDetail}>
       <div
@@ -172,7 +195,7 @@ export default function NotifDetail(props) {
                   wordWrap: "break-word"
                 }}
               >
-                {props.description}
+                {desc}
               </Typography>
             </div>
             <div></div>
