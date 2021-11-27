@@ -95,13 +95,13 @@ export default function TwetchCallback(props) {
                 lineHeight: "24px"
               }}
             >
-              One Last Thing...
+              Une dernière chose...
             </Typography>
             <Typography
               variant="body1"
               style={{ marginTop: "16px", textAlign: "center" }}
             >
-              We need you to manually link your{" "}
+              Veuillez relier manuellement votre{" "}
               <a
                 className="Links"
                 href="https://twetch.app/wallet"
@@ -109,16 +109,18 @@ export default function TwetchCallback(props) {
                 target="_blank"
               >
                 <span style={{ color: theme.palette.primary.main }}>
-                  Twetch Wallet
+                  Porte Monnaie Twetch
                 </span>
               </a>{" "}
-              to {config.appIdentity.title}.
+              à l'application {config.appIdentity.title}.
             </Typography>
             <Typography
               variant="body1"
               style={{ textAlign: "center", marginBottom: "36px" }}
             >
-              <strong>We will never store your phrase.</strong>
+              <strong>
+                Nous n'aurons jamais accès à votre phrase de récupération
+              </strong>
             </Typography>
             <div
               style={{
@@ -147,7 +149,7 @@ export default function TwetchCallback(props) {
                   fullWidth
                   multiline
                   rows={4}
-                  placeholder="Paste your Twetch Wallet Recovery Phrase here"
+                  placeholder="Veuillez coller la phrase de récupération de votre Porte Monnaie Twetch ici"
                 />
                 {error && (
                   <Typography
@@ -169,7 +171,7 @@ export default function TwetchCallback(props) {
                   onClick={handleSubmit}
                 >
                   <Typography variant="body1">
-                    Link Twetch Wallet and start {config.appIdentity.mask}
+                    Relier le Porte Monnaie Twetch et commencer
                   </Typography>
                 </Button>
               </form>
