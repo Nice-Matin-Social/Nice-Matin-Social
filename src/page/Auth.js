@@ -71,7 +71,7 @@ export default function Auth() {
             color="primary"
             onClick={TwetchLogin}
           >
-            Log in with Twetch
+            Se Connecter avec Twetch
           </Button>
         </div>
         <div
@@ -99,7 +99,7 @@ export default function Auth() {
             href={config.ownerInfo.inviteLink}
             target="_blank"
           >
-            But ser, I don't have a Twetch account
+            Je n'ai pas de compte Twetch
           </Button>
         </div>
         <div
@@ -137,7 +137,7 @@ export default function Auth() {
                   lineHeight: "20px"
                 }}
               >
-                Navigate anonymously
+                Naviguer anonymement
               </Typography>
             </div>
           </div>
