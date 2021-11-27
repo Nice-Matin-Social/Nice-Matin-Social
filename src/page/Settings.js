@@ -103,7 +103,7 @@ export default function Settings(props) {
                     fontWeight: "bold"
                   }}
                 >
-                  Settings
+                  Réglages
                 </Typography>
               </Button>
             </div>
@@ -125,7 +125,7 @@ export default function Settings(props) {
               }}
               variant="body1"
             >
-              Dark Mode
+              Mode Sombre
             </Typography>
             <div style={{ flexGrow: 1 }} />
             <Switch
@@ -154,7 +154,7 @@ export default function Settings(props) {
               }}
               variant="body1"
             >
-              One Click Payment
+              Paiements en 1 clic
             </Typography>
             <div style={{ flexGrow: 1 }} />
             <Switch
@@ -186,7 +186,7 @@ export default function Settings(props) {
               }}
               onClick={logOut}
             >
-              Log Out
+              Se Déconnecter
             </div>
           </div>
         </div>
