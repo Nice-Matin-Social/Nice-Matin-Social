@@ -43,7 +43,7 @@ export default function SearchBox() {
             variant="outlined"
             value={input}
             onChange={handleChange(input)}
-            placeholder="Search"
+            placeholder="Rechercher"
             required
             startAdornment={
               <InputAdornment position="start">
