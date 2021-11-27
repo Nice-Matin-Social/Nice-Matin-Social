@@ -170,8 +170,8 @@ export default function Profile(props) {
                       }}
                     >
                       {userData.id === localStorage.id
-                        ? "Your Profile"
-                        : `${userData.name}'s Profile`}
+                        ? "Votre Profile"
+                        : `Profile de ${userData.name}`}
                     </Typography>
                   ) : (
                     <Typography
@@ -271,9 +271,9 @@ export default function Profile(props) {
                   value={OrderToIndex[orderBy]}
                   onChange={handleChangeOrder}
                 >
-                  <MenuItem value={0}>Latest</MenuItem>
-                  <MenuItem value={10}>Oldest</MenuItem>
-                  <MenuItem value={20}>Economy</MenuItem>
+                  <MenuItem value={0}>Récents</MenuItem>
+                  <MenuItem value={10}>Anciens</MenuItem>
+                  <MenuItem value={20}>Economie</MenuItem>
                 </Select>
               </FormControl>
               <InfiniteScroll
@@ -295,7 +295,7 @@ export default function Profile(props) {
                 }
                 endMessage={
                   <p style={{ textAlign: "center" }}>
-                    <b>Yay, you've seen it all!</b>
+                    <b>Bravo, vous avez tout vu!</b>
                   </p>
                 }
               >
