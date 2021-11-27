@@ -129,7 +129,7 @@ export default function LeftPane(props) {
                   to="/auth"
                   style={{ textTransform: "none" }}
                 >
-                  Log In
+                  Se Connecter
                 </Button>
               </div>
             )}
@@ -181,7 +181,7 @@ export default function LeftPane(props) {
                   </ListItemIcon>
                   <ListItemText>
                     <Typography variant="body1" color={isSelected("Home")}>
-                      Home
+                      Accueil
                     </Typography>
                   </ListItemText>
                 </ListItem>
@@ -191,7 +191,7 @@ export default function LeftPane(props) {
                   </ListItemIcon>
                   <ListItemText>
                     <Typography variant="body1" color={isSelected("Settings")}>
-                      Settings
+                      Réglages
                     </Typography>
                   </ListItemText>
                 </ListItem>
@@ -233,7 +233,7 @@ export default function LeftPane(props) {
                 </div>
               }
             >
-              Create Post
+              Créer un Post
             </Button>
           </div>
         </div>
